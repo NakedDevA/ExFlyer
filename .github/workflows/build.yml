@@ -20,18 +20,18 @@ jobs:
       uses: NuGet/setup-nuget@v1
      
     - name: Restore NuGet Packages
-      run: nuget restore SnowFlyer2.sln
+      run: nuget restore ExFlyer.sln
  
     - name: Build and Publish Web App
-      run: msbuild SnowFlyer2.sln /p:Configuration=Release /p:DeployOnBuild=true /p:Platform=x64
+      run: msbuild ExFlyer.sln /p:Configuration=Release /p:DeployOnBuild=true /p:Platform=x64
       
     - name: Build
       shell: bash
-      run: 7z a -tzip "SnowFlyer2.zip" "./SnowFlyer2\bin\x64\Release\*"
+      run: 7z a -tzip "ExFlyer.zip" "./ExFlyer\bin\x64\Release\*"
     - name: Publish
       uses: softprops/action-gh-release@v1
       with:
        files: |
-        SnowFlyer2.zip
+        ExFlyer.zip
       env:
        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
