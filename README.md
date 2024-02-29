@@ -1,13 +1,13 @@
-## SnowFlyer2
+## ExFlyer
 
-A minimal trainer to enable free camera mode in Snowrunner
+A minimal trainer to enable free camera mode in Expeditions
 
-Tested on version 28.1 (Season 12 February Hotfix),  Steam and Epic versions.
+Tested on version 1 (Early Access),  Steam and Epic versions.
 
 ## Usage
 
-Simply unzip to a folder of your choice, then run Snowflyer2.
-When Snowrunner is running, follow the prompts to toggle free camera mode.
+Simply unzip to a folder of your choice, then run ExFlyer.
+When Expeditions is running, follow the prompts to toggle free camera mode.
 
 ## Config
 
