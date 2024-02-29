@@ -49,7 +49,7 @@ namespace SnowFlyer2
         // To find the fly mode offset after patches, use Cheat Engine in a mod map, toggling the free camera button and scanning for a 4 byte boolean.
         // There will be two - one is the highlight state of the free camera button, the other is the actual freecam state.
         // NB- this mod can't be tested on mod maps, since those already have devmode flag set they will become unable to use freecam when we swizzle the devmode check
-        private static readonly int FlyModeFlagOffset = 0x2E87138;
+        private static readonly int FlyModeFlagOffset = 0x2A09BBC;
         private static readonly byte[] FlyModeOnPatch = { 0x01 };
         private static readonly byte[] FlyModeRevertPatch = { 0x00 };
 
@@ -100,7 +100,7 @@ namespace SnowFlyer2
             HotKeyManager.RegisterHotKey(config.ToggleFreezeTime, KeyModifiers.Control);
             HotKeyManager.RegisterHotKey(config.ToggleTimeLapseMode, KeyModifiers.Control);
             HotKeyManager.RegisterHotKey(config.GetPlayerLocation, KeyModifiers.Control);
-            HotKeyManager.HotKeyPressed += (sender2, e2) => Hotkey_Pressed(sender2, e2, config,snowRunnerProcess);
+            HotKeyManager.HotKeyPressed += (sender2, e2) => Hotkey_Pressed(sender2, e2, config, snowRunnerProcess);
 
             bool showMenu = true;
             while (showMenu)
@@ -111,14 +111,16 @@ namespace SnowFlyer2
         }
         private static bool MainMenu(Process snowRunnerProcess, KeybindingConfig config)
         {
-            string logo = @"   _____                     ______ _                   ___  
-  / ____|                   |  ____| |                 |__ \ 
- | (___  _ __   _____      _| |__  | |_   _  ___ _ __     ) |
-  \___ \| '_ \ / _ \ \ /\ / /  __| | | | | |/ _ \ '__|   / / 
-  ____) | | | | (_) \ V  V /| |    | | |_| |  __/ |     / /_ 
- |_____/|_| |_|\___/ \_/\_/ |_|    |_|\__, |\___|_|    |____|
-                                       __/ |                 
-                                      |___/                  ";
+            string logo = @"
+ _____    ______ _                 
+|  ___|   |  ___| |                
+| |____  _| |_  | |_   _  ___ _ __ 
+|  __\ \/ /  _| | | | | |/ _ \ '__|
+| |___>  <| |   | | |_| |  __/ |   
+\____/_/\_\_|   |_|\__, |\___|_|   
+                    __/ |          
+                   |___/           
+";
             Console.Clear();
 
             Console.WriteLine(logo);
@@ -126,7 +128,7 @@ namespace SnowFlyer2
 
 
             DisplayHotkeyInstructions(config);
-            
+
             //Prevent app from closing
             Console.ReadKey();
             return true;
@@ -242,7 +244,7 @@ namespace SnowFlyer2
                 return default;
             }
             //return basePtr + offsets[^1];
-            return basePtr + offsets[offsets.Length-1];
+            return basePtr + offsets[offsets.Length - 1];
         }
 
         private static int GetOpcodeLengthOfPattern(string pattern)
@@ -296,13 +298,13 @@ namespace SnowFlyer2
 
         private static Process attachToSnowRunnerProcess()
         {
-            Console.WriteLine("Looking for SnowRunner.exe");
-            var p = Process.GetProcessesByName("SnowRunner");
+            Console.WriteLine("Looking for Expeditions.exe");
+            var p = Process.GetProcessesByName("Expeditions");
             while (p.Length == 0)
             {
-                Console.WriteLine("Waiting for SnowRunner.exe");
+                Console.WriteLine("Waiting for Expeditions.exe");
                 Thread.Sleep(1000);
-                p = Process.GetProcessesByName("SnowRunner");
+                p = Process.GetProcessesByName("Expeditions");
             }
             var snowRunnerProcess = p.First();
             return snowRunnerProcess;
@@ -444,10 +446,10 @@ namespace SnowFlyer2
         private static void DisplayHotkeyInstructions(KeybindingConfig config)
         {
             Console.WriteLine("\n \nHotkeys: \n");
-            Console.WriteLine("Ctrl + "+ config.ToggleFlyMode +": \t Toggle free camera mode\n");
-            Console.WriteLine("Ctrl + "+ config.ToggleFreezeTime +": \t Toggle in-game time\n");
-            Console.WriteLine("Ctrl + "+ config.ToggleTimeLapseMode +": \t Toggle timelapse\n");
-            Console.WriteLine("Ctrl + "+ config.GetPlayerLocation +": \t Get player location\n");
+            Console.WriteLine("Ctrl + " + config.ToggleFlyMode + ": \t Toggle free camera mode\n");
+            Console.WriteLine("Ctrl + " + config.ToggleFreezeTime + ": \t Toggle in-game time\n");
+            Console.WriteLine("Ctrl + " + config.ToggleTimeLapseMode + ": \t Toggle timelapse\n");
+            Console.WriteLine("Ctrl + " + config.GetPlayerLocation + ": \t Get player location\n");
         }
 
         private static void ConsoleLogWithColour(string content, ConsoleColor foreground, ConsoleColor background)
