@@ -2,7 +2,7 @@
 
 A minimal trainer to enable free camera mode in Expeditions
 
-Tested on version 1 (Early Access),  Steam and Epic versions.
+Tested on version 1.1 (March 7th fix update),  Steam and Epic versions.
 
 ## Usage
 
